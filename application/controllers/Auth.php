@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class Auth extends CI_Controller {
 
 	function __construct()
     {
@@ -15,7 +15,7 @@ class User extends CI_Controller {
         if($s_login !== 'logged'){
             redirect('auth/login');
         }else{
-            redirect('user');
+            redirect('admin');
         }
             
     }
@@ -30,6 +30,12 @@ class User extends CI_Controller {
             $this->session->set_flashdata(array('error' => 'Username atau Password Salah !!'));
         }
         $this->load->view('auth_view');
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('auth/login');
     }
 
 }
