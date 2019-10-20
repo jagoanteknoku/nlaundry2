@@ -6,7 +6,7 @@ class Pelanggan extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('admin_model');
         $s_login = $this->session->status;
         /*if($s_login !== 'logged'){
             redirect('auth/login');
@@ -24,9 +24,26 @@ class Pelanggan extends CI_Controller {
         
     public function edit($id)
     {
-        $data['pelanggan'] = $this->user_model->pelanggan($id);
+        if(empty($id)){
+            redirect('admin/pelanggan');
+        }
+        $data['pelanggan'] = $this->admin_model->pelanggan($id);
+        $data['title'] = "EDIT ";
         $this->load->view('admin/edit_pelanggan_view', $data);
-        
+    }
+
+    public function save($id)
+    {
+        if(isset($id))
+        {
+            $nama = $this->input->post('nama', TRUE);
+            $alamat = $this->input->post('alamat', TRUE);
+            $phone = $this->input->post('phone', TRUE);
+            $this->admin_model->save_pelanggan($id, $nama, $alamat, $phone);
+            redirect('admin/pelanggan');
+        } else {
+            redirect('admin/pelanggan');
+        }
     }
 
 }

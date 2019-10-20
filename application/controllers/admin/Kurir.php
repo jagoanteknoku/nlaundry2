@@ -6,7 +6,7 @@ class Kurir extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('admin_model');
         $s_login = $this->session->status;
         /*if($s_login !== 'logged'){
             redirect('auth/login');
@@ -24,8 +24,13 @@ class Kurir extends CI_Controller {
 
     public function edit($id)
     {
-        $data['kurir'] = $this->user_model->kurir($id);
+        $data['kurir'] = $this->admin_model->kurir($id);
         $this->load->view('admin/edit_kurir_view', $data);
+
+    }
+
+    public function save($id)
+    {
 
     }
 

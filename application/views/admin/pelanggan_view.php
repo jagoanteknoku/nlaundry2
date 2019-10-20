@@ -35,8 +35,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $data['pelanggan_no'] ?></td>
             <td>
             <?php echo '
-            <a href="'.base_url('user/pelanggan/edit/'.$data['pelanngan_id']).'" class="btn btn-sm btn-info" >Edit</a>
-            <a href="'.base_url('user/pelanggan/delete/'.$data['pelanngan_id']).'" class="btn btn-sm btn-danger" >Delete</a> 
+            <a href="'.base_url('admin/pelanggan/edit/'.$data['pelanngan_id']).'" class="btn btn-sm btn-info" >Edit</a>
+            <a href="'.base_url('admin/pelanggan/delete/'.$data['pelanngan_id']).'" class="btn btn-sm btn-danger" >Delete</a> 
             '; ?>
             </td>
           </tr>

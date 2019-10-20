@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $data['transaksi_masuk'] ?></td>
             <td><?php echo $data['transaksi_keluar'] ?></td>
             <td><?php echo $data['transaksi_total'] ?></td>
-            <td><?php echo '<a href="'.base_url('user/transaksi/edit/'.$data['transaksi_id']).'" class="btn btn-sm btn-info" >Edit</a>'; ?></td>
+            <td><?php echo '<a href="'.base_url('admin/transaksi/edit/'.$data['transaksi_id']).'" class="btn btn-sm btn-info" >Edit</a>'; ?></td>
           </tr>
         <?php endforeach;?>
         </tbody>

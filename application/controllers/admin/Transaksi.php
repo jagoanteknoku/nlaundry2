@@ -6,7 +6,7 @@ class Transaksi extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('admin_model');
         $this->load->model('cek_model');
         $s_login = $this->session->status;
         /*if($s_login !== 'logged'){
@@ -25,7 +25,7 @@ class Transaksi extends CI_Controller {
 
     public function edit($id)
     {
-        $data['transaksi'] = $this->user_model->transaksi($id);
+        $data['transaksi'] = $this->admin_model->transaksi($id);
         $this->load->view('admin/edit_transaksi_view', $data);
 
     }

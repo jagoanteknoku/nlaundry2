@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Admin_model extends CI_Model {
     
     function auth_login($usermae, $password)
     {
@@ -15,7 +15,7 @@ class User_model extends CI_Model {
         }
     }
 
-    function edit_user($id, $nama, $alamat, $phone)
+    function save_pelanggan($id, $nama, $alamat, $phone)
     {
         $this->db->set('pelanggan_nama', $nama);
         $this->db->set('pelanggan_alamat', $alamat);
@@ -24,7 +24,7 @@ class User_model extends CI_Model {
         $this->db->update('pelanggan');
     }
 
-    function edit_kurir($id, $nama, $alamat, $phone)
+    function save_kurir($id, $nama, $alamat, $phone)
     {
         $this->db->set('kurir_nama', $nama);
         $this->db->set('kurir_alamat', $alamat);
@@ -33,7 +33,7 @@ class User_model extends CI_Model {
         $this->db->update('kurir');
     }
 
-    function edit_transaksi($id, $pelanggan, $barang, $kurir, $berat, $status)
+    function save_transaksi($id, $pelanggan, $barang, $kurir, $berat, $status)
     {
         $this->db->set('transaksi_pelanggan', $pelanggan);
         $this->db->set('transaksi_barang', $barang);
@@ -88,7 +88,7 @@ class User_model extends CI_Model {
 
     function pelanggan($pelanggan_id)
     {
-        return $this->db->get_where('pelanggan', array('pelanggan_id' => $pelanggan_id))->result_array();
+        return $this->db->get_where('pelanggan', array('pelanngan_id' => $pelanggan_id))->result_array();
     }
 
     function kurir($kurir_id)
