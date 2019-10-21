@@ -22,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <th scope="col">Nama</th>
             <th scope="col">Alamat</th>
             <th scope="col">No HP</th>
+            <th scope="col">Action </th>
           </tr>
         </thead>
         <?php
@@ -32,6 +33,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php echo $data['kurir_nama'] ?></td>
             <td><?php echo $data['kurir_alamat'] ?></td>
             <td><?php echo $data['kurir_no'] ?></td>
+            <td>
+            <?php echo '
+            <a href="'.base_url('admin/kurir/edit/'.$data['kurir_id']).'" class="btn btn-sm btn-info" >Edit</a>
+            <a href="'.base_url('admin/kurir/delete/'.$data['kurir_id']).'" class="btn btn-sm btn-danger" >Delete</a> 
+            '; ?>  
+            </td>
           </tr>
         <?php endforeach;?>
         </tbody>

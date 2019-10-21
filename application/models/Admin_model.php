@@ -100,6 +100,52 @@ class Admin_model extends CI_Model {
     {
         return $this->db->get_where('transaksi', array('transaksi_id' => $transaksi))->result_array();
     }
-    
+
+    function delete_pelanggan($id)
+    {
+        $this->db->where('pelanngan_id', $id);
+        $this->db->delete('pelanggan');
+    }
+
+    function delete_kurir($id)
+    {
+        $this->db->where('kurir_id', $id);
+        $this->db->delete('kurir');
+    }
+
+    function delete_transaksi($id)
+    {
+        $this->db->where('transaksi_id', $id);
+        $this->db->delete('transaksi');
+    }
+
+    function transaksi_antri($id)
+    {
+        $this->db->set('transaksi_status', '0');
+        $this->db->where('transaksi_id', $id);
+        $this->db->update('transaksi');
+    }
+
+    function transaksi_pencucian($id)
+    {
+        $this->db->set('transaksi_status', '1');
+        $this->db->where('transaksi_id', $id);
+        $this->db->update('transaksi');   
+    }
+
+    function transaksi_siap($id)
+    {
+        $this->db->set('transaksi_status', '2');
+        $this->db->where('transaksi_id', $id);
+        $this->db->update('transaksi');
+    }
+
+    function transaksi_antar($id)
+    {
+        $this->db->set('transaksi_status', '3');
+        $this->db->where('transaksi_id', $id);
+        $this->db->update('transaksi');
+    }
+
 }
 ?>

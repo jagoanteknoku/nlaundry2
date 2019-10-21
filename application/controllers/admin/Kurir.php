@@ -31,7 +31,23 @@ class Kurir extends CI_Controller {
 
     public function save($id)
     {
+        if(isset($id))
+        {
+            $nama = $this->input->post('nama', TRUE);
+            $alamat = $this->input->post('alamat', TRUE);
+            $phone = $this->input->post('phone', TRUE);
+            $this->admin_model->save_kurir($id, $nama, $alamat, $phone);
+            redirect('admin/kurir');
+        } else {
+            redirect('admin/kurir');
+        }
+    }
 
+    public function delete($id)
+    {
+        $data['kurir'] = $this->admin_model->delete_kurir($id);
+        $this->session->set_flashdata(array('message', 'Data berhasil di Hapus !! '));
+        redirect('admin/kurir');
     }
 
 }
