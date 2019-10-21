@@ -15,8 +15,9 @@ user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 user_guide/*
-application/config/config.php
 
+#ignore Config 
+application/config/config.php
 # IDE Files
 #-------------------------
 /nbproject/
