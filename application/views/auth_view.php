@@ -15,8 +15,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 		<div class="col-md-8">
 		<h1> Login Admin </h1>
-        <form method="POST">
-            Username : <input type="text" name="username"> Password : <input type="password" name="passowrd">
+		<?php if($this->session->flashdata('message')){
+			echo $this->session->flashdata('message');
+		} ?>
+        <form method="POST" action="<?php echo base_url('auth/auth_login');?>">
+            Username : <input type="text" name="username"> Password : <input type="password" name="password">
             <input type="submit" value="login"> 
         </form>
 		</div>

@@ -1,8 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pelanggan extends CI_Controller {
-
+class Dashboard extends CI_Controller {
 
 	function __construct()
     {
@@ -12,26 +11,22 @@ class Pelanggan extends CI_Controller {
         if($s_login !== 'logged'){
             redirect('auth/login');
         }
-        echo $s_login;
     }
 
     private $data;
 
 	public function index()
 	{
-        $data['title'] = 'Pelanggan ';
-        $data['data'] = $this->db->get('pelanggan')->result_array();
-        $this->load->view('admin/pelanggan_view', $data);
+        $data['title'] = 'Kurir';
+        $data['data'] = $this->db->get('kurir')->result_array();
+        $this->load->view('admin/kurir_view', $data);
     }
-        
+
     public function edit($id)
     {
-        if(empty($id)){
-            redirect('admin/pelanggan');
-        }
-        $data['pelanggan'] = $this->admin_model->pelanggan($id);
-        $data['title'] = "EDIT ";
-        $this->load->view('admin/edit_pelanggan_view', $data);
+        $data['kurir'] = $this->admin_model->kurir($id);
+        $this->load->view('admin/edit_kurir_view', $data);
+
     }
 
     public function save($id)
@@ -41,18 +36,18 @@ class Pelanggan extends CI_Controller {
             $nama = $this->input->post('nama', TRUE);
             $alamat = $this->input->post('alamat', TRUE);
             $phone = $this->input->post('phone', TRUE);
-            $this->admin_model->save_pelanggan($id, $nama, $alamat, $phone);
-            redirect('admin/pelanggan');
+            $this->admin_model->save_kurir($id, $nama, $alamat, $phone);
+            redirect('admin/kurir');
         } else {
-            redirect('admin/pelanggan');
+            redirect('admin/kurir');
         }
     }
 
     public function delete($id)
     {
-        $this->admin_model->delete_pelanggan($id);
+        $data['kurir'] = $this->admin_model->delete_kurir($id);
         $this->session->set_flashdata(array('message', 'Data berhasil di Hapus !! '));
-        redirect('admin/pelanggan');
+        redirect('admin/kurir');
     }
 
 }

@@ -8,7 +8,7 @@ class Admin_model extends CI_Model {
         $this->db->where('username', $usermae);
         $this->db->where('password', $password);
         $result = $this->db->get('admin');
-        if(empty($result)){
+        if($result->num_rows() < 1){
             return false;
         } else {
             return true;

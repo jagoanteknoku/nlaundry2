@@ -22,20 +22,32 @@ class Auth extends CI_Controller {
         
     public function login()
     {
-        $user = $this->input->post('username');
-        $paswd = $this->input->post('password');
+        $this->load->view('auth_view');
+    }
+
+    public function auth_login()
+    {
+        $user = $this->input->post('username', TRUE);
+        $paswd = $this->input->post('password', TRUE);
         if($this->admin_model->auth_login($user, $paswd)){
             $this->session->set_userdata(array('status' => 'logged'));
+            redirect('admin/pelanggan');
         } else {
-            $this->session->set_flashdata(array('error' => 'Username atau Password Salah !!'));
+            $this->session->set_flashdata(array('message' => 'Username atau Password Salah !!'));
+            redirect('auth/login');
         }
-        $this->load->view('auth_view');
     }
 
     public function logout()
     {
         $this->session->sess_destroy();
         redirect('auth/login');
+    }
+
+    public function register()
+    {
+        $username = $this->input->post('username', TRUE);
+        $password = $this->input->post('password', TRUE);
     }
 
 }
