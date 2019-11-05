@@ -32,6 +32,9 @@ class Home extends CI_Controller {
 	public function cek($resi)
 	{
 		$data['data'] = $this->cek_model->get_data($resi);
+		if(empty($data['data'])){
+			redirect('/');
+		}
 		$data['title'] = 'Otong Laundry';
 		//print_r($data);
         $this->load->view('cek_view', $data);

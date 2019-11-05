@@ -12,7 +12,7 @@ class Pelanggan extends CI_Controller {
         if($s_login !== 'logged'){
             redirect('auth/login');
         }
-        echo $s_login;
+        //$this->output->enable_profiler(TRUE);
     }
 
     private $data;

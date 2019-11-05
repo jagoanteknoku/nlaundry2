@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->model('admin_model');
+        $this->load->model('dashboard_model');
         $s_login = $this->session->status;
         if($s_login !== 'logged'){
             redirect('auth/login');
@@ -17,37 +17,16 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-        $data['title'] = 'Kurir';
-        $data['data'] = $this->db->get('kurir')->result_array();
-        $this->load->view('admin/kurir_view', $data);
-    }
-
-    public function edit($id)
-    {
-        $data['kurir'] = $this->admin_model->kurir($id);
-        $this->load->view('admin/edit_kurir_view', $data);
-
-    }
-
-    public function save($id)
-    {
-        if(isset($id))
-        {
-            $nama = $this->input->post('nama', TRUE);
-            $alamat = $this->input->post('alamat', TRUE);
-            $phone = $this->input->post('phone', TRUE);
-            $this->admin_model->save_kurir($id, $nama, $alamat, $phone);
-            redirect('admin/kurir');
-        } else {
-            redirect('admin/kurir');
-        }
-    }
-
-    public function delete($id)
-    {
-        $data['kurir'] = $this->admin_model->delete_kurir($id);
-        $this->session->set_flashdata(array('message', 'Data berhasil di Hapus !! '));
-        redirect('admin/kurir');
+        $data['penghasilan'] = $this->dashboard_model->penghasilan_hari_lalu(0);
+        $data['hari1'] = $data['hari2'] = $this->dashboard_model->hari_lalu(7);
+        $data['trs_masuk'] = $this->dashboard_model->laundry_masuk(7);
+        $data['trs_keluar'] = $this->dashboard_model->laundry_keluar(7);
+        $data['max_trs_masuk'] = max($data['trs_masuk']);
+        $data['max_trs_keluar'] = max($data['trs_keluar']);
+        $data['antrian'] = $this->dashboard_model->jumlah_status('0');
+        $data['siap'] = $this->dashboard_model->jumlah_status('2');
+        $data['selesai'] = $this->dashboard_model->jumlah_status('4');
+        $this->load->view('admin/dashboard_view', $data);
     }
 
 }
