@@ -28,8 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">List Pelanggan</h4>
-                  <p class="card-category"> List Semua Pelanggan </p>
+                  <h4 class="card-title ">List Pelanggan</h4> 
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -69,6 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </tbody>
                     </table>
                   </div>
+                  <a href="<?php echo base_url('admin/pelanggan/add');?>" class="btn btn-primary btn-lg pull-right"> Add </a>
                 </div>
               </div>
             </div>

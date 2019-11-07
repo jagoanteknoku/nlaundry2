@@ -28,18 +28,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-md-9">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Edit Pelanggan</h4>
+                  <h4 class="card-title ">Tambah Pelanggan</h4>
                   <p class="card-category"> </p>
                 </div>
                 <div class="card-body">
-
-				<form method="POST" action="<?php echo base_url('admin/pelanggan/save/'.$this->uri->segment(4)); ?>">
-				<?php foreach($pelanggan as $data): ?>
+                <?php echo validation_errors(); ?>
+				<form method="POST">
+				
 				<div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Nama</label>
-						  <input type="text" class="form-control" name="nama" value="<?php echo $data['pelanggan_nama']; ?>">
+						  <input type="text" class="form-control" name="nama" value="">
 						</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="col-md-12">
                         <div class="form-group">
 						  <label class="bmd-label-floating">Alamat</label>
-						  <input type="text" class="form-control" name="alamat" value="<?php echo $data['pelanggan_alamat']; ?>">
+						  <input type="text" class="form-control" name="alamat" value="">
 						</div>
 					</div>
 				</div>
@@ -55,12 +55,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <div class="col-md-12">
                         <div class="form-group">
 						  <label class="bmd-label-floating">Phone</label>
-                          <input type="number" class="form-control" name="phone"value="<?php echo $data['pelanggan_no']; ?>">
+                          <input type="number" class="form-control" name="phone"value="">
 						</div>
 					</div>
 				</div>
-				<?php endforeach ?>
-				<input class="btn btn-primary pull-right" type="submit" name="save" value="SAVE">
+				
+				<input class="btn btn-primary pull-right" type="submit" name="add" value="Tambah">
 				</form>
                 </div>
               </div>
