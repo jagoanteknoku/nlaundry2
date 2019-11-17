@@ -80,7 +80,7 @@ class Admin_model extends CI_Model {
             'transaksi_barang' => $barang_id,
             'transaksi_kurir' => $kurir_id,
             'transaksi_berat' => $barang_berat,
-            'transaksi_status' => 'Antri',
+            'transaksi_status' => '0',
             'transaksi_harga' => $harga
         );
         $this->db->insert('transaksi', $transaksi);
@@ -119,30 +119,9 @@ class Admin_model extends CI_Model {
         $this->db->delete('transaksi');
     }
 
-    function transaksi_antri($id)
+    function transaksi_antri($id, $status_id)
     {
-        $this->db->set('transaksi_status', '0');
-        $this->db->where('transaksi_id', $id);
-        $this->db->update('transaksi');
-    }
-
-    function transaksi_pencucian($id)
-    {
-        $this->db->set('transaksi_status', '1');
-        $this->db->where('transaksi_id', $id);
-        $this->db->update('transaksi');   
-    }
-
-    function transaksi_siap($id)
-    {
-        $this->db->set('transaksi_status', '2');
-        $this->db->where('transaksi_id', $id);
-        $this->db->update('transaksi');
-    }
-
-    function transaksi_antar($id)
-    {
-        $this->db->set('transaksi_status', '3');
+        $this->db->set('transaksi_status', $status_id);
         $this->db->where('transaksi_id', $id);
         $this->db->update('transaksi');
     }

@@ -25,7 +25,7 @@ class Dashboard extends CI_Controller {
         $data['max_trs_keluar'] = max($data['trs_keluar']);
         $data['antrian'] = $this->dashboard_model->jumlah_status('0');
         $data['siap'] = $this->dashboard_model->jumlah_status('2');
-        $data['selesai'] = $this->dashboard_model->jumlah_status('4');
+        $data['selesai'] = $this->dashboard_model->jumlah_status('5');
         $this->load->view('admin/dashboard_view', $data);
     }
 

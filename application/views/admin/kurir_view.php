@@ -68,6 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <?php endforeach;?>
                       </tbody>
                     </table>
+                    <a href="<?php echo base_url('admin/kurir/add');?>" class="btn btn-primary btn-lg pull-right"> Add </a>
                   </div>
                 </div>
               </div>

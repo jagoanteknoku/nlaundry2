@@ -27,6 +27,11 @@ class Home extends CI_Controller {
 	{
 		$data['title'] = 'Otong Laundry';
 		$this->load->view('home_view', $data);
+		if($this->input->get('i_resi'))
+		{
+			$resi = $this->input->get('i_resi');
+			redirect('cek/'.$resi);
+		}
 	}
 
 	public function cek($resi)
@@ -36,7 +41,6 @@ class Home extends CI_Controller {
 			redirect('/');
 		}
 		$data['title'] = 'Otong Laundry';
-		//print_r($data);
         $this->load->view('cek_view', $data);
 	}
 

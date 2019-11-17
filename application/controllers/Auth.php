@@ -31,7 +31,7 @@ class Auth extends CI_Controller {
         $paswd = $this->input->post('password', TRUE);
         if($this->admin_model->auth_login($user, $paswd)){
             $this->session->set_userdata(array('status' => 'logged'));
-            redirect('admin/pelanggan');
+            redirect('admin/dashboard');
         } else {
             $this->session->set_flashdata(array('message' => 'Username atau Password Salah !!'));
             redirect('auth/login');
