@@ -68,18 +68,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                           <th scope="row"><?php echo $data['transaksi_id'] ?></th>
                           <td><?php echo $data['pelanggan_nama'] ?></td>
-                          <td><?php echo $data['kurir_nama'] ?></td>
-                          <td><?php echo $data['transaksi_berat'] ?></td>
-                          <td><?php if($data['transaksi_status'] == 0){echo 'Antri';} elseif ($data['transaksi_status'] == 1){echo 'Pencucian';} elseif ($data['transaksi_status'] == 2){echo 'Siap Diambil';} elseif ($data['transaksi_status'] == 3){echo 'Barang di Antar';}  ?></td>
+                          <td><?php foreach ($kurir as $txkurir) {
+                            if($data['transaksi_kurir'] == $txkurir['kurir_id']){
+                              echo $txkurir['kurir_nama'];
+                            }
+                          } ?></td>
+                          <td><?php echo $data['transaksi_berat'] ?></td>                          
+                          <td><?php echo $data['status'] ?></td>
                           <td><?php echo $data['transaksi_masuk'] ?></td>
                           <td><?php echo $data['transaksi_keluar'] ?></td>
                           <td><?php echo $data['transaksi_total'] ?></td>
-                          <td><?php echo '<a href="'.base_url('admin/transaksi/edit/'.$data['transaksi_id']).'" class="btn btn-sm btn-info" >Edit</a>'; ?></td>
+                          <td><?php echo '
+                            <a href="'.base_url('admin/transaksi/edit/'.$data['transaksi_id']).'" class="btn btn-sm btn-info" >Edit</a>
+                            <a href="'.base_url('admin/transaksi/delete/'.$data['transaksi_id']).'" class="btn btn-sm btn-danger" >Delete</a> 
+                          '; ?>
+                          <?php 
+                          echo '<div class="dropdown">
+                          <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-toggle="dropdown">Status
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">';
+                          foreach ($status as $statusi) {
+                              echo '<li><a href="'.base_url('admin/transaksi/status/'.$data['transaksi_id']).'/'.$statusi['id'].'">'.$statusi['status'].'</a></li>';
+                          }
+                          echo '</ul> </div>';
+                          ?>
+                          </td>
                         </tr>
                       <?php endforeach;?>
                       </tbody>
                     </table>
                   </div>
+                  <a href="<?php echo base_url('admin/transaksi/add');?>" class="btn btn-primary btn-lg pull-right"> Add </a>
                 </div>
               </div>
             </div>
@@ -96,6 +115,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
   
     <?php $this->load->view('admin/_partials/js.php'); ?>
+    <script>
+      $('.table-responsive').on('show.bs.dropdown', function () {
+          $('.table-responsive').css( "overflow", "inherit" );
+      });
+
+      $('.table-responsive').on('hide.bs.dropdown', function () {
+          $('.table-responsive').css( "overflow", "auto" );
+      })
+    </script>
 
 </body>
 

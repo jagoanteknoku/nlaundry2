@@ -44,6 +44,13 @@ class Admin_model extends CI_Model {
         $this->db->update('transaksi');
     }
 
+    function save_transaksi_selesai($id)
+    {
+        $this->db->set('transaksi_keluar', 'NOW()', FALSE);
+        $this->db->where('transaksi_id', $id);
+        $this->db->update('transaksi');
+    }
+
     function add_user($nama, $alamat, $phone)
     {
         $pelanggan = array(
@@ -80,8 +87,9 @@ class Admin_model extends CI_Model {
             'transaksi_barang' => $barang_id,
             'transaksi_kurir' => $kurir_id,
             'transaksi_berat' => $barang_berat,
-            'transaksi_status' => '0',
-            'transaksi_harga' => $harga
+            'transaksi_status' => '1',
+            'transaksi_harga' => $harga,
+            'transaksi_masuk' => 'NOW()'
         );
         $this->db->insert('transaksi', $transaksi);
     }
@@ -119,11 +127,15 @@ class Admin_model extends CI_Model {
         $this->db->delete('transaksi');
     }
 
-    function transaksi_antri($id, $status_id)
+    function transaksi_update($id, $status_id)
     {
         $this->db->set('transaksi_status', $status_id);
         $this->db->where('transaksi_id', $id);
         $this->db->update('transaksi');
+        if($status_id == 5) {
+            $this->save_transaksi_selesai($id);
+        }
+        
     }
 
 }

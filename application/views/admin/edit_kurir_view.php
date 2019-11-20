@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-						  <label class="bmd-label-floating">Phone</label>
+						      <label class="bmd-label-floating">Phone</label>
                           <input type="number" class="form-control" name="phone" value="<?php echo $data['kurir_no']; ?>">
 						</div>
 					</div>

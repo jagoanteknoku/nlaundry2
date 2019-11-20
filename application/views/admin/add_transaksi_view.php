@@ -35,19 +35,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <h4 class="card-title ">Edit Transaksi</h4>
                   <p class="card-category"> </p>
           </div>
-        <div class="card-body">
-
-				<form method="POST" action="<?php echo base_url('admin/pelanggan/save/'.$this->uri->segment(4)); ?>">
-				<?php foreach($transaksi as $data): ?>
+        <div class="card-body"> 
+				<form method="POST" action="<?php echo base_url('admin/transaksi/save/'.$this->uri->segment(4)); ?>"> 
 				<div class="row">
           <div class="col-md-12">
             <div class="form-group">
             <label class="bmd-label-floating">Pelanggan</label> 
               <select class="form-control dropdown" name="pelanggan">
                   <?php foreach($pelanggan as $pelanggan): ?> 
-                    <option value="<?php echo $pelanggan['pelanngan_id'];?>" <?php  if($data['pelanngan_id']==$pelanggan['pelanngan_id']) {echo "selected";} ?>><?php echo $pelanggan['pelanggan_nama']; ?></option>
+                    <option value="<?php echo $pelanggan['pelanngan_id'];?>"><?php echo $pelanggan['pelanggan_nama']; ?></option>
                   <?php endforeach ?>
               </select>
+              <small><a href="#" data-toggle="modal" data-target="#ModalaAdd"> Add New User </a></small>
             </div>
 					</div>
 				</div>
@@ -57,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						  <label class="bmd-label-floating">Kurir</label>
               <select class="form-control dropdown" name="kurir">
                <?php foreach($kurir as $kurir): ?> 
-                    <option value="<?php echo $kurir['kurir_id']; ?>" <?php  if($data['kurir_id']==$kurir['kurir_id']) { echo"selected";}?>><?php echo $kurir['kurir_nama'];?></option>
+                    <option value="<?php echo $kurir['kurir_id']; ?>"><?php echo $kurir['kurir_nama'];?></option>
                 <?php endforeach ?>
               </select>
               </div>
@@ -67,51 +66,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-md-12">
             <div class="form-group">
 						  <label class="bmd-label-floating">Berat</label>
-              <input type="number" class="form-control" name="berat" value="<?php echo $data['transaksi_berat']; ?>">
+              <input type="number" class="form-control" name="berat" value="0">
 						</div>
 					</div>
 				</div>
-				<div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-						  <label class="bmd-label-floating">Status</label>
-              <select class="form-control dropdown" name="status">
-               <?php foreach($status as $status): ?> 
-                    <option value="<?php echo $status['id']; ?>" <?php  if($data['transaksi_status']==$status['id']) { echo"selected";}?>><?php echo $status['status'];?></option>
-                <?php endforeach ?>
-              </select>
-            </div>
-					</div>
-        </div>
 				<div class="row">
           <div class="col-md-12">
             <div class="form-group">
 						  <label class="bmd-label-floating">Barang</label>
               <select class="form-control dropdown" name="barang">
-               <?php foreach($barang as $barang): ?> 
-                    <option value="<?php echo $barang['barang_id']; ?>" <?php  if($data['transaksi_barang']==$barang['barang_id']) { echo"selected";}?>><?php echo $barang['barang_jenis'];?></option>
+               <?php foreach($barang as $vbarang): ?> 
+                    <option value="<?php echo $vbarang['barang_id']; ?>"><?php echo $vbarang['barang_jenis'];?></option>
                 <?php endforeach ?>
               </select>
             </div>
 					</div>
 				</div>
-				<div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-						  <label class="bmd-label-floating">Tanggal Masuk</label><br>
-              <input class="form-control" id="datemasuk" name="datemasuk" placeholder="MM/DD/YYY" type="text" value="<?php echo $data['transaksi_masuk']; ?>"/>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label class="bmd-label-floating">Tanggal Keluar</label><br>
-              <input class="form-control" id="datekeluar" name="datekeluar" placeholder="MM/DD/YYY" type="text" value="<?php echo $data['transaksi_keluar']; ?>"/>
-						</div>
-					</div>
-				</div>
-				<?php endforeach ?>
+ 
 				<input class="btn btn-primary pull-right" type="submit" name="save" value="SAVE">
 				</form>
                 </div>
@@ -122,6 +93,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
       </div>
 
+        <!-- MODAL ADD -->
+        <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title" id="myModalLabel">Tambah Barang</h3>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+ 
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" >Kode Barang</label>
+                        <div class="col-xs-9">
+                            <input name="kobar" id="kode_barang" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" required>
+                        </div>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" >Nama Barang</label>
+                        <div class="col-xs-9">
+                            <input name="nabar" id="nama_barang" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                        </div>
+                    </div>
+ 
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" >Harga</label>
+                        <div class="col-xs-9">
+                            <input name="harga" id="harga" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                        </div>
+                    </div>
+ 
+                </div>
+ 
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                    <button class="btn btn-info" id="btn_simpan">Simpan</button>
+                </div>
+            </form>
+            </div>
+            </div>
+        </div>
+        <!--END MODAL ADD-->
+        
       <footer class="footer">
         <?php $this->load->view('admin/_partials/footer.php'); ?>
       </footer>
@@ -131,19 +146,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
    
     <?php $this->load->view('admin/_partials/js.php'); ?>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>  
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
-    <script>  
-      $(document).ready(function(){  
-           $.datepicker.setDefaults({  
-                dateFormat: 'yy-mm-dd'   
-           });  
-           $(function(){  
-                $("#datemasuk").datepicker();  
-                $("#datekeluar").datepicker();  
-           });
-      });  
-    </script>
  </body>
 
 </html>

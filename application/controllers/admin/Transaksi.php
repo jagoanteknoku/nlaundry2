@@ -18,18 +18,19 @@ class Transaksi extends CI_Controller {
 
 	public function index()
 	{
-        $data['title'] = 'Transaksi';
-        $data['data'] = $this->cek_model->get_transaksi();
+        $data['status']     = $this->db->get('status')->result_array();
+        $data['kurir']      = $this->db->get('kurir')->result_array();
+        $data['data']       = $this->cek_model->get_transaksi();
         $this->load->view('admin/transaksi_view', $data);
     }
 
     public function edit($id)
     {
-        $data['pelanggan'] = $this->db->get('pelanggan')->result_array();
-        $data['kurir'] = $this->db->get('kurir')->result_array();
-        $data['status'] = $this->db->get('status')->result_array();
-        $data['barang'] = $this->db->get('barang')->result_array();
-        $data['transaksi'] = $this->cek_model->get_data($id);
+        $data['pelanggan']  = $this->db->get('pelanggan')->result_array();
+        $data['kurir']      = $this->db->get('kurir')->result_array();
+        $data['status']     = $this->db->get('status')->result_array();
+        $data['barang']     = $this->db->get('barang')->result_array();
+        $data['transaksi']  = $this->cek_model->get_data($id);
         $this->load->view('admin/edit_transaksi_view', $data);
 
     }
@@ -41,12 +42,36 @@ class Transaksi extends CI_Controller {
             $pelanggan  = $this->input->post('pelanggan', TRUE);
             $kurir      = $this->input->post('kurir', TRUE);
             $berat      = $this->input->post('berat', TRUE);
-            $status     = $this->input->post('status', TRUE);
-            $tglmasuk   = $this->input->post('datemasuk', TRUE);
-            $tglkeluar  = $this->input->post('datekeluar', TRUE);
+            $barang     = $this->input->post('barang', TRUE);
+            $status     = $this->input->post('status', TRUE); 
+            $this->admin_model->save_transaksi($id, $pelanggan, $barang, $kurir, $berat, $status);
+            if($status == 5){
+                $this->admin_model->save_transaksi_selesai($id);
+            }
+            redirect('admin/transaksi');
         } else {
             redirect('admin/transaksi');
         }
+    }
+
+    public function status($id, $status_id)
+    {
+        $this->admin_model->transaksi_update($id, $status_id);
+        redirect('admin/transaksi');
+    }
+
+    public function add()
+    {
+        $data['pelanggan']  = $this->db->get('pelanggan')->result_array();
+        $data['kurir']      = $this->db->get('kurir')->result_array();
+        $data['barang']     = $this->db->get('barang')->result_array();
+        $this->load->view('admin/add_transaksi_view', $data);
+    }
+
+    public function delete($id)
+    {
+        $this->admin_model->delete_transaksi($id);
+        redirect('admin/transaksi');
     }
 
 }

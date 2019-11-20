@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           No. HP
                         </th>
                         <th>
-                          Action
+                          Action 
                         </th>
                       </thead>
                       <tbody>

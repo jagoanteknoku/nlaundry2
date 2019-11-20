@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </tr>
 		  <tr>
             <th scope="row">Status </th>
-            <td><?php if($data['transaksi_status'] == 0){echo 'Antri';} elseif ($data['transaksi_status'] == 1){echo 'Pencucian';} elseif ($data['transaksi_status'] == 2){echo 'Siap Diambil';} elseif ($data['transaksi_status'] == 3){echo 'Barang di Antar';}  ?></td>
+            <td><?php echo $data['status'] ?></td>
           </tr>
 		  <tr>
             <th scope="row">Nama Pelanggan </th>

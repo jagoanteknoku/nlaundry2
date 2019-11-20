@@ -8,6 +8,7 @@ class Cek_model extends CI_Model {
         $this->db->join('pelanggan', 'pelanngan_id = transaksi.transaksi_pelanggan');
         $this->db->join('kurir', 'kurir_id = transaksi.transaksi_kurir');
         $this->db->join('barang', 'barang_id = transaksi.transaksi_barang');
+        $this->db->join('status', 'id = transaksi.transaksi_status');
         $this->db->from('transaksi');
         $this->db->where('transaksi_id =', $resi);
         return $this->db->get()->result_array(); 
@@ -16,8 +17,8 @@ class Cek_model extends CI_Model {
     function get_transaksi(){
         $this->db->select('*');
         $this->db->join('pelanggan', 'pelanngan_id = transaksi.transaksi_pelanggan');
-        $this->db->join('kurir', 'kurir_id = transaksi.transaksi_kurir');
         $this->db->join('barang', 'barang_id = transaksi.transaksi_barang');
+        $this->db->join('status', 'id = transaksi.transaksi_status');
         $this->db->from('transaksi');
         return $this->db->get()->result_array(); 
     }
