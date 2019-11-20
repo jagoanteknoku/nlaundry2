@@ -34,9 +34,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Edit Transaksi</h4>
                   <p class="card-category"> </p>
-          </div>
+              </div>
         <div class="card-body"> 
-				<form method="POST" action="<?php echo base_url('admin/transaksi/save/'.$this->uri->segment(4)); ?>"> 
+				<form method="POST"> 
 				<div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -62,19 +62,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
 					</div>
 				</div>
-				<div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-						  <label class="bmd-label-floating">Berat</label>
-              <input type="number" class="form-control" name="berat" value="0">
-						</div>
-					</div>
-				</div>
-				<div class="row">
+        <div class="row">
           <div class="col-md-12">
             <div class="form-group">
 						  <label class="bmd-label-floating">Barang</label>
-              <select class="form-control dropdown" name="barang">
+              <select class="form-control dropdown" id="barang" name="barang">
                <?php foreach($barang as $vbarang): ?> 
                     <option value="<?php echo $vbarang['barang_id']; ?>"><?php echo $vbarang['barang_jenis'];?></option>
                 <?php endforeach ?>
@@ -82,8 +74,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 					</div>
 				</div>
+				<div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+						  <label class="bmd-label-floating">Berat</label>
+              <input type="number" class="form-control" name="berat" id="berat" value="0">
+						</div>
+					</div>
+				</div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+						  <label class="bmd-label-floating">Harga</label>
+              <input type="number" class="form-control" name="harga" id="harga" value="0">
+						</div>
+					</div>
+				</div>
  
-				<input class="btn btn-primary pull-right" type="submit" name="save" value="SAVE">
+				<input class="btn btn-primary pull-right" type="submit" name="save" value="ADD">
 				</form>
                 </div>
               </div>
@@ -96,32 +104,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- MODAL ADD -->
         <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title" id="myModalLabel">Tambah Barang</h3>
-            </div>
+            <div class="modal-content"> 
+            <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Tambahkan User</h4>
+                  <p class="card-category"> </p>
+              </div>
+              <div class="card-body"> 
             <form class="form-horizontal">
-                <div class="modal-body">
- 
+                <div class="modal-body"> 
                     <div class="form-group">
-                        <label class="control-label col-xs-3" >Kode Barang</label>
+                    <label class="bmd-label-floating">Nama</label>
                         <div class="col-xs-9">
-                            <input name="kobar" id="kode_barang" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" required>
+                            <input name="nama" id="nama" class="form-control" type="text">
                         </div>
                     </div>
  
                     <div class="form-group">
-                        <label class="control-label col-xs-3" >Nama Barang</label>
+                      <label class="bmd-label-floating">Alamat</label>
                         <div class="col-xs-9">
-                            <input name="nabar" id="nama_barang" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                            <input name="alamat" id="alamat" class="form-control" type="text">
                         </div>
                     </div>
  
                     <div class="form-group">
-                        <label class="control-label col-xs-3" >Harga</label>
+                        <label class="bmd-label-floating">Phone</label>
                         <div class="col-xs-9">
-                            <input name="harga" id="harga" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                            <input name="phone" id="phone" class="form-control" type="text">
                         </div>
                     </div>
  
@@ -129,9 +138,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                    <button class="btn btn-info" id="btn_simpan">Simpan</button>
+                    <button class="btn btn-primary" id="btn_simpan">Simpan</button>
                 </div>
             </form>
+            </div>
+            </div>
             </div>
             </div>
         </div>
@@ -143,9 +154,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     </div>
 
-  </div>
-   
+  </div> 
     <?php $this->load->view('admin/_partials/js.php'); ?>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+        //Input Harga 
+        $("#berat").keyup(function(){
+          var berat = $(this).val();
+          var barang = $("#barang").children("option").filter(":selected").val();
+          var harga =
+          $.ajax({
+            type : "POST",
+            url : "<?php echo base_url('admin/transaksi/get_harga')?>",
+            dataType : "JSON",
+            data : {berat:berat, barang:barang},
+            success : function(data){
+              //console.log(data);
+              $("#harga").val(data);
+            } 
+          });
+        })
+        .keyup();
+
+        //Add User
+        $('#btn_simpan').on('click',function(){
+            var nama=$('#nama').val();
+            var alamat=$('#alamat').val();
+            var phone=$('#phone').val();
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('admin/transaksi/add_user')?>",
+                dataType : "JSON",
+                data : {nama:nama , alamat:alamat, phone:phone},
+                success: function(data){
+                    location.reload();
+                }
+            });
+            return false;
+        });
+
+    });
+    </script>
  </body>
 
 </html>

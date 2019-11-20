@@ -15,6 +15,12 @@ class Admin_model extends CI_Model {
         }
     }
 
+    function get_harga($barang_id,$berat)
+    {
+        $harga = $this->db->get_where('barang', array( 'barang_id' => $barang_id))->row();
+        return $harga = $harga->barang_harga*$berat;
+    }
+
     function save_pelanggan($id, $nama, $alamat, $phone)
     {
         $this->db->set('pelanggan_nama', $nama);
@@ -40,6 +46,7 @@ class Admin_model extends CI_Model {
         $this->db->set('transaksi_kurir', $kurir);
         $this->db->set('transaksi_berat', $berat);
         $this->db->set('transaksi_status', $status);
+        $this->db->set('transaksi_total', $this->get_harga($barang, $berat));
         $this->db->where('transaksi_id', $id);
         $this->db->update('transaksi');
     }
@@ -88,10 +95,10 @@ class Admin_model extends CI_Model {
             'transaksi_kurir' => $kurir_id,
             'transaksi_berat' => $barang_berat,
             'transaksi_status' => '1',
-            'transaksi_harga' => $harga,
+            'transaksi_total' => $harga,
             'transaksi_masuk' => 'NOW()'
         );
-        $this->db->insert('transaksi', $transaksi);
+        $this->db->insert('transaksi', $transaksi, FALSE);
     }
 
     function pelanggan($pelanggan_id)
